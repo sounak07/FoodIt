@@ -1,5 +1,4 @@
 import React from "react";
-import BuildChild from "./BuildControl/BuildControl";
 import classes from "./BuildControls.css";
 import BuildControl from "./BuildControl/BuildControl";
 
@@ -14,7 +13,11 @@ const buildControls = props => {
   return (
     <div className={classes.BuildControls}>
       {controls.map(ctrl => (
-        <BuildControl key={ctrl.label} label={ctrl.label} />
+        <BuildControl
+          clicked={() => props.click(ctrl.type)}
+          key={ctrl.label}
+          label={ctrl.label}
+        />
       ))}
     </div>
   );
