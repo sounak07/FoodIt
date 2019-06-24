@@ -75,11 +75,15 @@ class BurgerBuilder extends Component {
     });
   };
 
-  backDropHandler = () => {
+  purchaseCancel = () => {
     const status = false;
     this.setState({
       showModel: status
     });
+  };
+
+  purchaseContinue = () => {
+    alert("Ready set go!");
   };
 
   render() {
@@ -93,11 +97,12 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Model
-          show={this.state.showModel}
-          backDropHandle={this.backDropHandler}
-        >
-          <OrderSummery ingredients={this.state.ingredients} />
+        <Model show={this.state.showModel} backDropHandle={this.purchaseCancel}>
+          <OrderSummery
+            cancel={this.purchaseCancel}
+            continue={this.purchaseContinue}
+            ingredients={this.state.ingredients}
+          />
         </Model>
 
         <Burger ingredients={this.state.ingredients} />
