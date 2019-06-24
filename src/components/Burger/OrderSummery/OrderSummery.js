@@ -17,6 +17,9 @@ const orderSummery = props => {
       <h3>Your Order Summery</h3>
       <p>You have the following ingredients</p>
       <ul>{summery}</ul>
+      <p>
+        <strong>Total Amount: {props.tp.toFixed(2)}</strong>
+      </p>
       <Button clicked={props.continue} btnType="Success">
         CheckOut!
       </Button>
