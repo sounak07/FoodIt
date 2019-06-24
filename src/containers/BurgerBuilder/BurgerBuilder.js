@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Model from "../../components/UI/Modals/Modal";
+import OrderSummery from "../../components/Burger/OrderSummery/OrderSummery";
 
 const INGREDIENTS_PRICES = {
   salad: 0.3,
@@ -19,7 +21,22 @@ class BurgerBuilder extends Component {
       cheese: 0,
       meat: 0
     },
-    totalPrice: 4
+    totalPrice: 2,
+    purchasable: false
+  };
+
+  updatePurchasable = updated => {
+    const sum = Object.keys(updated)
+      .map(indi => {
+        return updated[indi];
+      })
+      .reduce((sum, el) => {
+        return sum + el;
+      }, 0);
+
+    this.setState({
+      purchasable: sum > 0
+    });
   };
 
   addIngredients = type => {
@@ -33,6 +50,7 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: updatedPrice
     });
+    this.updatePurchasable(updatedIngredients);
   };
 
   removeIngredients = type => {
@@ -42,11 +60,11 @@ class BurgerBuilder extends Component {
     };
     updatedIngredients[type] = UpdatedCount;
     const updatedPrice = this.state.totalPrice - INGREDIENTS_PRICES[type];
-    if (UpdatedCount >= 0)
-      this.setState({
-        ingredients: updatedIngredients,
-        totalPrice: updatedPrice
-      });
+    this.setState({
+      ingredients: updatedIngredients,
+      totalPrice: updatedPrice
+    });
+    this.updatePurchasable(updatedIngredients);
   };
 
   render() {
@@ -60,11 +78,16 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
+        <Model>
+          <OrderSummery ingredients={this.state.ingredients} />
+        </Model>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           addIngre={this.addIngredients}
           removeIngre={this.removeIngredients}
           disabled={disabledInfo}
+          totPrice={this.state.totalPrice}
+          purchase={this.state.purchasable}
         />
       </Aux>
     );
