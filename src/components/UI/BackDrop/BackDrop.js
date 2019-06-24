@@ -1,8 +1,10 @@
 import React from "react";
-// import classes from "./Model.css";
+import classes from "./BackDrop.css";
 
 const backDrop = props => {
-  return <div>{props.children}</div>;
+  return props.shows ? (
+    <div onClick={props.backD} className={classes.Backdrop} />
+  ) : null;
 };
 
 export default backDrop;

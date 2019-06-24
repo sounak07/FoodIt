@@ -22,7 +22,8 @@ class BurgerBuilder extends Component {
       meat: 0
     },
     totalPrice: 2,
-    purchasable: false
+    purchasable: false,
+    showModel: false
   };
 
   updatePurchasable = updated => {
@@ -67,6 +68,20 @@ class BurgerBuilder extends Component {
     this.updatePurchasable(updatedIngredients);
   };
 
+  showModelPop = () => {
+    const status = true;
+    this.setState({
+      showModel: status
+    });
+  };
+
+  backDropHandler = () => {
+    const status = false;
+    this.setState({
+      showModel: status
+    });
+  };
+
   render() {
     const disabledInfo = {
       ...this.state.ingredients
@@ -78,9 +93,13 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Model>
+        <Model
+          show={this.state.showModel}
+          backDropHandle={this.backDropHandler}
+        >
           <OrderSummery ingredients={this.state.ingredients} />
         </Model>
+
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           addIngre={this.addIngredients}
@@ -88,6 +107,7 @@ class BurgerBuilder extends Component {
           disabled={disabledInfo}
           totPrice={this.state.totalPrice}
           purchase={this.state.purchasable}
+          showM={this.showModelPop}
         />
       </Aux>
     );
