@@ -127,7 +127,7 @@ class ContactData extends Component {
     }
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.totprice,
+      price: this.props.totalPrice,
       orderData: formData
     };
 
@@ -184,4 +184,4 @@ const mapStoreToProps = state => {
   };
 };
 
-export default connect()(ContactData);
+export default connect(mapStoreToProps)(ContactData);
