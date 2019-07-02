@@ -4,6 +4,7 @@ import Button from "../../../components/UI/Button/Button";
 import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
+import { connect } from "react-redux";
 
 class ContactData extends Component {
   state = {
@@ -31,9 +32,7 @@ class ContactData extends Component {
         },
         value: "",
         validation: {
-          required: true,
-          minLength: 3,
-          maxLength: 6
+          required: true
         },
         valid: false,
         touched: false
@@ -72,9 +71,13 @@ class ContactData extends Component {
         elementType: "select",
         elementConfig: {
           options: [
+            { value: "", displayValue: "Select Delivery Method" },
             { value: "fastest", displayValue: "Fastest" },
             { value: "cheapest", displayValue: "Cheapest" }
           ]
+        },
+        validation: {
+          required: true
         },
         value: "",
         valid: false,
@@ -134,7 +137,7 @@ class ContactData extends Component {
         // console.log(res);
         this.setState({ loading: false });
         alert("Order Placed! THANK YOU");
-        this.props.history.push("/");
+        this.props.history.replace("/");
       })
       .catch(error => {
         this.setState({ loading: false });
@@ -174,4 +177,11 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStoreToProps = state => {
+  return {
+    ingredients: state.ingredients,
+    totalPrice: state.totalPrice
+  };
+};
+
+export default connect()(ContactData);
