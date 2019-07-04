@@ -6,9 +6,8 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Model from "../../components/UI/Modals/Modal";
 import OrderSummery from "../../components/Burger/OrderSummery/OrderSummery";
-// import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import * as actionTypes from "../../store/actions";
+import * as burgerCreators from "../../store/actions/index.js";
 
 // const INGREDIENTS_PRICES = {
 //   salad: 0.3,
@@ -22,23 +21,24 @@ class BurgerBuilder extends Component {
     super(props);
     this.state = {
       // ingredients: null,
-      totalPrice: 2,
+      // totalPrice: 2,
       // purchasable: false,
-      showModel: false,
-      loading: false
+      showModel: false
+      // loading: false
     };
   }
 
-  // componentDidMount() {
-  //   axios
-  //     .get("https://burger-76104.firebaseio.com/ingredients.json")
-  //     .then(res => {
-  //       this.setState({ ingredients: res.data });
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  // }
+  componentDidMount() {
+    this.props.onInitIngredients();
+    //   axios
+    //     .get("https://burger-76104.firebaseio.com/ingredients.json")
+    //     .then(res => {
+    //       this.setState({ ingredients: res.data });
+    //     })
+    //     .catch(e => {
+    //       console.log(e);
+    //     });
+  }
 
   updatePurchasable = updated => {
     const sum = Object.keys(updated)
@@ -124,7 +124,7 @@ class BurgerBuilder extends Component {
     return (
       <Aux>
         <Model show={this.state.showModel} backDropHandle={this.purchaseCancel}>
-          {this.state.loading || !this.props.ingredients ? (
+          {!this.props.ingredients ? (
             <Spinner />
           ) : (
             <OrderSummery
@@ -157,17 +157,17 @@ class BurgerBuilder extends Component {
 
 const mapStoreToProps = state => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice
+    ingredients: state.burger.ingredients,
+    totalPrice: state.burger.totalPrice,
+    error: state.burger.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addIngredients: type =>
-      dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName: type }),
-    removeIngredients: type =>
-      dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName: type })
+    addIngredients: type => dispatch(burgerCreators.addIngredients(type)),
+    removeIngredients: type => dispatch(burgerCreators.removeIngredients(type)),
+    onInitIngredients: () => dispatch(burgerCreators.fetchIngredients())
   };
 };
 

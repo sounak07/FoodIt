@@ -5,6 +5,7 @@ import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
+import * as orderCreators from "../../../store/actions/index";
 
 class ContactData extends Component {
   state = {
@@ -83,8 +84,8 @@ class ContactData extends Component {
         valid: false,
         touched: false
       }
-    },
-    loading: false
+    }
+    // loading: false
   };
 
   checkValidity = (value, rules) => {
@@ -119,7 +120,7 @@ class ContactData extends Component {
 
   orderHandler = event => {
     event.preventDefault();
-    this.setState({ loading: true });
+    // this.setState({ loading: true });
     let formData = {};
 
     for (let i in this.state.order) {
@@ -131,17 +132,19 @@ class ContactData extends Component {
       orderData: formData
     };
 
-    axios
-      .post("/orders.json", order)
-      .then(res => {
-        // console.log(res);
-        this.setState({ loading: false });
-        alert("Order Placed! THANK YOU");
-        this.props.history.replace("/");
-      })
-      .catch(error => {
-        this.setState({ loading: false });
-      });
+    this.props.initOrder(order);
+
+    // axios
+    //   .post("/orders.json", order)
+    //   .then(res => {
+    //     // console.log(res);
+    //     this.setState({ loading: false });
+    //     alert("Order Placed! THANK YOU");
+    //     this.props.history.replace("/");
+    //   })
+    //   .catch(error => {
+    //     this.setState({ loading: false });
+    //   });
   };
 
   render() {
@@ -164,7 +167,7 @@ class ContactData extends Component {
     return (
       <div>
         <h4 className={classes.Heading}>Enter your info!</h4>
-        {this.state.loading ? (
+        {this.props.loading ? (
           <Spinner />
         ) : (
           <form onSubmit={this.orderHandler} className={classes.ContactData}>
@@ -179,9 +182,19 @@ class ContactData extends Component {
 
 const mapStoreToProps = state => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice
+    ingredients: state.burger.ingredients,
+    totalPrice: state.burger.totalPrice,
+    loading: state.odr.loading
   };
 };
 
-export default connect(mapStoreToProps)(ContactData);
+const mapDispatchToProps = dispatch => {
+  return {
+    initOrder: orderData => dispatch(orderCreators.orderInit(orderData))
+  };
+};
+
+export default connect(
+  mapStoreToProps,
+  mapDispatchToProps
+)(ContactData);
