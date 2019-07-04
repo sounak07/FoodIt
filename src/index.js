@@ -9,8 +9,10 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import burgerBuilder from "./store/reducers/burgerBuilder";
 import order from "./store/reducers/orders";
 import thunk from "redux-thunk";
+import authReducer from "./store/reducers/auth";
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   burger: burgerBuilder,
   odr: order
 });
