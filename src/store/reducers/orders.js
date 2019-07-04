@@ -2,7 +2,8 @@ import * as actionTypes from "../actions/actionTypes";
 
 const order = {
   orders: [],
-  laoding: false
+  laoding: false,
+  purchased: false
 };
 
 const OrderReducer = (state = order, action) => {
@@ -19,7 +20,13 @@ const OrderReducer = (state = order, action) => {
       };
       return {
         ...state,
-        orders: newOrder
+        orders: newOrder,
+        purchased: true
+      };
+    case actionTypes.PURCHASED:
+      return {
+        ...state,
+        purchased: false
       };
     default:
       return state;

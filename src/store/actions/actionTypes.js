@@ -5,3 +5,5 @@ export const ERROR = "ERROR";
 export const ORDER_HANDLER = "ORDER_HANDLER";
 export const ORDER_FAILED = "ORDER_FAILED";
 export const LOADING = "LOADING";
+export const PURCHASED = "PURCHASED";
+// export const PRICE_FETCH = "PRICE_FETCH";

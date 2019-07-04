@@ -37,3 +37,9 @@ export const orderInit = orderData => {
       });
   };
 };
+
+export const purchased = () => {
+  return {
+    type: actionTypes.PURCHASED
+  };
+};

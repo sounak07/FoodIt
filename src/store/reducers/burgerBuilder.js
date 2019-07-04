@@ -9,7 +9,7 @@ const INGREDIENTS_PRICES = {
 
 const initState = {
   ingredients: null,
-  totalPrice: 2,
+  totalPrice: null,
   error: false
 };
 
@@ -37,6 +37,7 @@ const burgerBuilder = (state = initState, action) => {
       return {
         ...state,
         ingredients: action.ingredients,
+        totalPrice: 2,
         error: false
       };
     case actionTypes.ERROR:
@@ -44,7 +45,11 @@ const burgerBuilder = (state = initState, action) => {
         ...state,
         error: true
       };
-
+    // case actionTypes.PRICE_FETCH:
+    //   return {
+    //     ...state,
+    //     totalPrice: action.price.price
+    //   };
     default:
       return state;
   }

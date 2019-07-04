@@ -31,7 +31,7 @@ export const error = () => {
 export const fetchIngredients = () => {
   return dispatch => {
     axios
-      .get("https://burger-76104.firebaseio.com/ingredients.json")
+      .get("/ingredients.json")
       .then(res => {
         // console.log(res.data);
         dispatch(initIngredients(res.data));
@@ -41,3 +41,18 @@ export const fetchIngredients = () => {
       });
   };
 };
+
+// export const setPrice = res => {
+//   return {
+//     type: actionTypes.PRICE_FETCH,
+//     price: res
+//   };
+// };
+
+// export const fetchPrice = () => {
+//   return dispatch => {
+//     axios.get("https://burger-76104.firebaseio.com/price.json").then(res => {
+//       dispatch(setPrice(res.data));
+//     });
+//   };
+// };
