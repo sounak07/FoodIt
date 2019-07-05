@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import classes from "./ContactData.css";
 import Button from "../../../components/UI/Button/Button";
-import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
@@ -132,7 +131,7 @@ class ContactData extends Component {
       orderData: formData
     };
 
-    this.props.initOrder(order);
+    this.props.initOrder(order, this.props.token);
 
     // axios
     //   .post("/orders.json", order)
@@ -184,13 +183,15 @@ const mapStoreToProps = state => {
   return {
     ingredients: state.burger.ingredients,
     totalPrice: state.burger.totalPrice,
-    loading: state.odr.loading
+    loading: state.odr.loading,
+    token: state.auth.token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    initOrder: orderData => dispatch(orderCreators.orderInit(orderData))
+    initOrder: (orderData, token) =>
+      dispatch(orderCreators.orderInit(orderData, token))
   };
 };
 

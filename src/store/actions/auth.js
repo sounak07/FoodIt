@@ -62,3 +62,16 @@ export const auth_process = (email, password, isSignUp) => {
       });
   };
 };
+
+export const logoutHandler = () => {
+  return dispatch => {
+    dispatch(logout());
+  };
+};
+
+export const setRedirect = path => {
+  return {
+    type: actionTypes.SET_REDIRECT,
+    path: path
+  };
+};

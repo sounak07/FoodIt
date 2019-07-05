@@ -6,4 +6,4 @@ export {
 
 export { orderInit, purchased } from "./orders.js";
 
-export { auth_process } from "./auth.js";
+export { auth_process, logoutHandler, setRedirect } from "./auth.js";

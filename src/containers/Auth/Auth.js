@@ -5,6 +5,7 @@ import Button from "../../components/UI/Button/Button";
 import { connect } from "react-redux";
 import * as authCreators from "../../store/actions/index";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import { Redirect } from "react-router-dom";
 
 class Auth extends Component {
   state = {
@@ -89,6 +90,12 @@ class Auth extends Component {
     });
   };
 
+  componentDidMount() {
+    if (!this.props.building && this.props.currentUrl !== "/") {
+      this.props.setPath();
+    }
+  }
+
   render() {
     let form = Object.keys(this.state.formControls).map(key => {
       return (
@@ -112,8 +119,10 @@ class Auth extends Component {
         <p className={classes.Error}>{this.props.error.message}</p>
       );
     }
+
     return (
       <div>
+        {this.props.auth ? <Redirect to={this.props.currentUrl} /> : null}
         <h4 className={classes.Heading}>
           {this.state.isSignUp ? "SIGN UP" : "SIGN IN"}
         </h4>
@@ -138,15 +147,19 @@ class Auth extends Component {
 
 const mapStoreToProps = state => {
   return {
+    auth: state.auth.token,
     loading: state.auth.loading,
-    error: state.auth.error
+    error: state.auth.error,
+    building: state.burger.building,
+    currentUrl: state.auth.authRedirect
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignUp) =>
-      dispatch(authCreators.auth_process(email, password, isSignUp))
+      dispatch(authCreators.auth_process(email, password, isSignUp)),
+    setPath: () => dispatch(authCreators.setRedirect("/"))
   };
 };
 

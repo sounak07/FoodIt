@@ -22,11 +22,12 @@ export const orderFailure = e => {
   };
 };
 
-export const orderInit = orderData => {
+export const orderInit = (orderData, token) => {
   return dispatch => {
     dispatch(loading());
+    console.log(token);
     axios
-      .post("/orders.json", orderData)
+      .post(`/orders.json?auth=${token}`, orderData)
       .then(res => {
         // console.log(res.data.name);
         dispatch(orderSuccess(res.data.name, orderData));

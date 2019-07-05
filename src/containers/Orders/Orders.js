@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Order from "../../components/Order/Order";
 import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 class Orders extends Component {
   state = {
@@ -10,11 +12,9 @@ class Orders extends Component {
   };
 
   componentDidMount() {
-    axios.get("/orders.json").then(res => {
-      //   console.log(res.data);
+    axios.get(`/orders.json?auth=${this.props.auth}`).then(res => {
       const fetchedOrders = [];
       for (let key in res.data) {
-        // console.log(res.data[key]);
         fetchedOrders.push({
           ...res.data[key],
           id: key
@@ -27,6 +27,7 @@ class Orders extends Component {
   render() {
     return (
       <div>
+        {this.props.auth ? null : <Redirect to="/" />}
         {this.state.loading ? (
           <Spinner />
         ) : (
@@ -45,4 +46,10 @@ class Orders extends Component {
   }
 }
 
-export default Orders;
+const mapStoreToProps = state => {
+  return {
+    auth: state.auth.token
+  };
+};
+
+export default connect(mapStoreToProps)(Orders);

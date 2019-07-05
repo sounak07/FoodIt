@@ -10,7 +10,8 @@ const INGREDIENTS_PRICES = {
 const initState = {
   ingredients: null,
   totalPrice: null,
-  error: false
+  error: false,
+  building: false
 };
 
 const burgerBuilder = (state = initState, action) => {
@@ -22,7 +23,9 @@ const burgerBuilder = (state = initState, action) => {
           ...state.ingredients,
           [action.ingredientName]: state.ingredients[action.ingredientName] + 1
         },
-        totalPrice: state.totalPrice + INGREDIENTS_PRICES[action.ingredientName]
+        totalPrice:
+          state.totalPrice + INGREDIENTS_PRICES[action.ingredientName],
+        building: true
       };
     case actionTypes.REMOVE_INGREDIENT:
       return {
@@ -31,14 +34,17 @@ const burgerBuilder = (state = initState, action) => {
           ...state.ingredients,
           [action.ingredientName]: state.ingredients[action.ingredientName] - 1
         },
-        totalPrice: state.totalPrice - INGREDIENTS_PRICES[action.ingredientName]
+        totalPrice:
+          state.totalPrice - INGREDIENTS_PRICES[action.ingredientName],
+        building: true
       };
     case actionTypes.INIT_INGREDIENT:
       return {
         ...state,
         ingredients: action.ingredients,
         totalPrice: 2,
-        error: false
+        error: false,
+        building: false
       };
     case actionTypes.ERROR:
       return {

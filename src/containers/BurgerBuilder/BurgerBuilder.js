@@ -9,35 +9,16 @@ import OrderSummery from "../../components/Burger/OrderSummery/OrderSummery";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import * as burgerCreators from "../../store/actions/index.js";
 
-// const INGREDIENTS_PRICES = {
-//   salad: 0.3,
-//   becon: 0.4,
-//   cheese: 0.5,
-//   meat: 0.7
-// };
-
 class BurgerBuilder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // ingredients: null,
-      // totalPrice: 2,
-      // purchasable: false,
       showModel: false
-      // loading: false
     };
   }
 
   componentDidMount() {
     this.props.onInitIngredients();
-    //   axios
-    //     .get("https://burger-76104.firebaseio.com/ingredients.json")
-    //     .then(res => {
-    //       this.setState({ ingredients: res.data });
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
   }
 
   updatePurchasable = updated => {
@@ -52,39 +33,16 @@ class BurgerBuilder extends Component {
     return sum > 0;
   };
 
-  // addIngredients = type => {
-  //   const UpdatedCount = this.props.ingredients[type] + 1;
-  //   const updatedIngredients = {
-  //     ...this.props.ingredients
-  //   };
-  //   updatedIngredients[type] = UpdatedCount;
-  //   const updatedPrice = INGREDIENTS_PRICES[type] + this.props.totalPrice;
-  //   this.setState({
-  //     ingredients: updatedIngredients,
-  //     totalPrice: updatedPrice
-  //   });
-  //   this.updatePurchasable(updatedIngredients);
-  // };
-
-  // removeIngredients = type => {
-  //   const UpdatedCount = this.props.ingredients[type] - 1;
-  //   const updatedIngredients = {
-  //     ...this.props.ingredients
-  //   };
-  //   updatedIngredients[type] = UpdatedCount;
-  //   const updatedPrice = this.props.totalPrice - INGREDIENTS_PRICES[type];
-  //   this.setState({
-  //     ingredients: updatedIngredients,
-  //     totalPrice: updatedPrice
-  //   });
-  //   this.updatePurchasable(updatedIngredients);
-  // };
-
   showModelPop = () => {
     const status = true;
-    this.setState({
-      showModel: status
-    });
+    if (this.props.auth) {
+      this.setState({
+        showModel: status
+      });
+    } else {
+      this.props.setCheckOutPath("/checkout");
+      this.props.history.push("/auth");
+    }
   };
 
   purchaseCancel = () => {
@@ -95,19 +53,6 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinue = () => {
-    // const queryParams = [];
-    // for (let i in this.props.ingredients)
-    //   queryParams.push(
-    //     `${encodeURIComponent(i)}=${encodeURIComponent(
-    //       this.props.ingredients[i]
-    //     )}`
-    //   );
-    // queryParams.push(`price=${this.props.totalPrice.toFixed(2)}`);
-    // const queryString = queryParams.join("&");
-    // this.props.history.push({
-    //   pathname: "/checkout",
-    //   search: `?${queryString}`
-    // });
     this.props.onPurchased();
     this.props.history.push("/checkout");
   };
@@ -145,6 +90,7 @@ class BurgerBuilder extends Component {
               totPrice={this.props.totalPrice}
               purchase={this.updatePurchasable(this.props.ingredients)}
               showM={this.showModelPop}
+              isAuth={this.props.auth}
             />
           </Aux>
         ) : (
@@ -159,7 +105,8 @@ const mapStoreToProps = state => {
   return {
     ingredients: state.burger.ingredients,
     totalPrice: state.burger.totalPrice,
-    error: state.burger.error
+    error: state.burger.error,
+    auth: state.auth.token !== null
   };
 };
 
@@ -168,7 +115,8 @@ const mapDispatchToProps = dispatch => {
     addIngredients: type => dispatch(burgerCreators.addIngredients(type)),
     removeIngredients: type => dispatch(burgerCreators.removeIngredients(type)),
     onInitIngredients: () => dispatch(burgerCreators.fetchIngredients()),
-    onPurchased: () => dispatch(burgerCreators.purchased())
+    onPurchased: () => dispatch(burgerCreators.purchased()),
+    setCheckOutPath: path => dispatch(burgerCreators.setRedirect(path))
   };
 };
 
