@@ -128,9 +128,11 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.totalPrice,
-      orderData: formData
+      orderData: formData,
+      userId: this.props.userId
     };
 
+    // console.log(this.props.userId);
     this.props.initOrder(order, this.props.token);
 
     // axios
@@ -184,14 +186,15 @@ const mapStoreToProps = state => {
     ingredients: state.burger.ingredients,
     totalPrice: state.burger.totalPrice,
     loading: state.odr.loading,
-    token: state.auth.token
+    token: state.auth.token,
+    userId: state.auth.userId
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    initOrder: (orderData, token) =>
-      dispatch(orderCreators.orderInit(orderData, token))
+    initOrder: (orderData, token, userId) =>
+      dispatch(orderCreators.orderInit(orderData, token, userId))
   };
 };
 

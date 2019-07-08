@@ -25,7 +25,7 @@ export const orderFailure = e => {
 export const orderInit = (orderData, token) => {
   return dispatch => {
     dispatch(loading());
-    console.log(token);
+    // console.log(token);
     axios
       .post(`/orders.json?auth=${token}`, orderData)
       .then(res => {
