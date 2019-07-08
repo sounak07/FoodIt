@@ -4,7 +4,9 @@ const INGREDIENTS_PRICES = {
   salad: 0.3,
   becon: 0.4,
   cheese: 0.5,
-  meat: 0.7
+  meat: 0.7,
+  coke: 4,
+  coffee: 3
 };
 
 const initState = {

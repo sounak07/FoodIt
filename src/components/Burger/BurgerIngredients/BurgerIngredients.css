@@ -110,3 +110,18 @@
   background: linear-gradient(#bf3813, #c45e38);
   margin: 2% auto;
 }
+
+.Coke {
+  width: 50%;
+  height: 60%;
+  background-image: url("../../../assets/Images/Musett-Coca-Cola-Coca-Cola-Smudge.ico");
+  float: right;
+}
+
+.Coffee {
+  width: 50%;
+  height: 64%;
+  margin-left: -30px;
+  background-image: url("../../../assets/Images/Dunedhel-Kappu-Coffee-2.ico");
+  float: left;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./NavigationItems.css";
+import Aux from "../../../hoc/Aux/Aux";
 
 import NavigationItem from "./NavigationItem/NavigationItem";
 
@@ -10,15 +11,12 @@ const navigationItems = props => {
         Burger
       </NavigationItem>
       {props.isAuth ? (
-        <NavigationItem link="/orders">Orders</NavigationItem>
-      ) : null}
-
-      {props.isAuth ? (
-        <NavigationItem link="/logout">Logout</NavigationItem>
+        <Aux>
+          <NavigationItem link="/orders">Orders</NavigationItem>
+          <NavigationItem link="/logout">Logout</NavigationItem>
+        </Aux>
       ) : (
-        <div>
-          <NavigationItem link="/auth">Auth!</NavigationItem>
-        </div>
+        <NavigationItem link="/auth">Auth!</NavigationItem>
       )}
     </ul>
   );

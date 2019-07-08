@@ -4,6 +4,7 @@ import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import NoOrder from "../../components/UI/noOrders/noOrders";
 
 class Orders extends Component {
   state = {
@@ -32,7 +33,9 @@ class Orders extends Component {
     return (
       <div>
         {this.props.auth ? null : <Redirect to="/" />}
-        {this.state.loading ? (
+        {this.state.orders === null ? (
+          <NoOrder />
+        ) : this.state.loading ? (
           <Spinner />
         ) : (
           this.state.orders.map(order => {
