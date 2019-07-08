@@ -6,8 +6,14 @@ import Orders from "./containers/Orders/Orders";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Auth from "./containers/Auth/Auth";
 import Logout from "./containers/Auth/Logout/Logout";
+import { connect } from "react-redux";
+import * as action from "./store/actions/index";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.checkOnLoad();
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -25,4 +31,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    checkOnLoad: () => dispatch(action.checkAuthState())
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);
