@@ -19,7 +19,7 @@ const order = props => {
       {orderList}
 
       <p>
-        Price: <strong>{props.price}</strong>
+        Price: $ <strong>{props.price}</strong>
       </p>
     </div>
   );
