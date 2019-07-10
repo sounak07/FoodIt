@@ -24,6 +24,7 @@ const buildControls = props => {
           key={ctrl.label}
           label={ctrl.label}
           disabled={props.disabled[ctrl.type]}
+          limitInfo={props.limitInfo[ctrl.type]}
         />
       ))}
       <button

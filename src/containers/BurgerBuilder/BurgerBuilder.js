@@ -9,7 +9,7 @@ import OrderSummery from "../../components/Burger/OrderSummery/OrderSummery";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import * as burgerCreators from "../../store/actions/index.js";
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,6 +66,14 @@ class BurgerBuilder extends Component {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
 
+    const limitInfo = {
+      ...this.props.ingredients
+    };
+
+    for (let key in limitInfo) {
+      limitInfo[key] = limitInfo[key] >= 3;
+    }
+
     return (
       <Aux>
         <Model show={this.state.showModel} backDropHandle={this.purchaseCancel}>
@@ -87,6 +95,7 @@ class BurgerBuilder extends Component {
               addIngre={this.props.addIngredients}
               removeIngre={this.props.removeIngredients}
               disabled={disabledInfo}
+              limitInfo={limitInfo}
               totPrice={this.props.totalPrice}
               purchase={this.updatePurchasable(this.props.ingredients)}
               showM={this.showModelPop}
