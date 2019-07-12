@@ -14,7 +14,7 @@ class OrderSummery extends Component {
     });
 
     return (
-      <Aux>
+      <Aux data-test="orderSummery">
         <h3>Your Order Summery</h3>
         <p>You have the following ingredients</p>
         <ul>{summery}</ul>

@@ -6,25 +6,6 @@ import BurgerIngredients from "../Burger/BurgerIngredients/BurgerIngredients";
 
 configure({ adapter: new Adapter() });
 
-// const setUp = (props = {}) => {
-//   const component = shallow(<Burger {...props} />);
-//   return component;
-// };
-
-// describe("<Burger/>", () => {
-//   let wrapper;
-//   beforeEach(() => {
-//     const props = {
-//       ingredients: { salad: 0, meat: 0, becon: 0, cheese: 0 }
-//     };
-//     wrapper = setUp(props);
-//   });
-
-//   it("should show 2 ingredients if no props", () => {
-//     expect(wrapper.find(BurgerIngredients)).toHaveLength(2);
-//   });
-// });
-
 const setUp = props => {
   const component = shallow(<Burger {...props} />);
   return component;

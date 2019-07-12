@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import NoOrder from "../../components/UI/noOrders/noOrders";
 
-class Orders extends Component {
+export class Orders extends Component {
   state = {
     orders: [],
     loading: true
