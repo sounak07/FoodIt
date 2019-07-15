@@ -26,6 +26,7 @@ export class Orders extends Component {
         });
       }
       this.setState({ orders: fetchedOrders, loading: false });
+      console.log(fetchedOrders);
     });
   }
 
