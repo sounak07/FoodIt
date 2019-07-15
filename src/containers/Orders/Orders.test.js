@@ -6,8 +6,8 @@ import Order from "../../components/Order/Order";
 
 configure({ adapter: new Adapter() });
 
-// const setup = props => {
-//   const component = shallow(<Orders {...props} />);
+// const setup = (props, state) => {
+//   const component = shallow(<Orders {...props} {...state} />);
 //   const componentInstance = component.instance();
 //   componentInstance.componentDidMount();
 //   return component;
@@ -17,11 +17,12 @@ describe("<Orders />", () => {
   // let wrapper;
   // beforeEach(() => {
   //   const props = { auth: "sjdshgdhgsdhgXyyafd" };
-  //   wrapper = setup(props);
+  //   const state = { orders: [], loading: true };
+  //   wrapper = setup(props, state);
   // });
 
   it("should show orderSummery if ingredients", () => {
-    // wrapper.setState = {
+    // const fetchorder = {
     //   "-LjGOrUGTV8f0-Uqen2H": {
     //     ingredients: {
     //       becon: 1,
@@ -40,27 +41,8 @@ describe("<Orders />", () => {
     //     },
     //     price: 10.899999999999999,
     //     userId: "XXAfmlAKJfZZPTocM21ONNwGQYv2"
-    //   },
-    //   "-LjGNizJdVFUFpRvIDa4": {
-    //     ingredients: {
-    //       becon: 0,
-    //       cheese: 0,
-    //       coffee: 0,
-    //       coke: 0,
-    //       meat: 0,
-    //       salad: 1
-    //     },
-    //     orderData: {
-    //       deliveryMethod: "cheapest",
-    //       email: "dwdw@gmail.com",
-    //       name: "dsds",
-    //       street: "546svs",
-    //       zipCode: "sshghs"
-    //     },
-    //     price: 2.3,
-    //     userId: "XXAfmlAKJfZZPTocM21ONNwGQYv2"
     //   }
     // };
-    // expect(wrapper.find(Order)).toHaveLength(1);
+    // expect(wrapper.state(fetchorder)).toHaveLength(1);
   });
 });

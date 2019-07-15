@@ -1,7 +1,7 @@
 import React from "react";
 import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import Burger from "../Burger/Burger";
+import Burger from "./Burger";
 import BurgerIngredients from "../Burger/BurgerIngredients/BurgerIngredients";
 
 configure({ adapter: new Adapter() });
@@ -15,7 +15,16 @@ describe("<Burger/>", () => {
   describe("With 0 ingre", () => {
     let wrapper;
     beforeEach(() => {
-      const props = { ingredients: { salad: 0, meat: 0, becon: 0, cheese: 0 } };
+      const props = {
+        ingredients: {
+          salad: 0,
+          meat: 0,
+          becon: 0,
+          cheese: 0,
+          coke: 0,
+          coffee: 0
+        }
+      };
       wrapper = setUp(props);
     });
 

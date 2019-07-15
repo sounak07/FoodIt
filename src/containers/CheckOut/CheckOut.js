@@ -4,7 +4,7 @@ import ContactData from "../../containers/CheckOut/ContactData/ContactData";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-class CheckOut extends Component {
+export class CheckOut extends Component {
   // state = {
   //   ingredients: null,
   //   totprice: 0
