@@ -30,7 +30,7 @@ export const error = () => {
 
 export const fetchIngredients = () => {
   return dispatch => {
-    axios
+    return axios
       .get("/ingredients.json")
       .then(res => {
         // console.log(res.data);
