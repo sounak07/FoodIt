@@ -51,7 +51,7 @@ export const auth_process = (email, password, isSignUp) => {
     let type;
 
     isSignUp ? (type = "signupNewUser") : (type = "verifyPassword");
-    axios
+    return axios
       .post(
         `https://www.googleapis.com/identitytoolkit/v3/relyingparty/${type}?key=AIzaSyDiHq94Hx7oZIyPgf-8CEsY-UO6u_S7bB8`,
         data

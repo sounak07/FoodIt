@@ -133,17 +133,14 @@ describe("BurgerBuilder", () => {
 
   it("calls initIngrdients when call has been done", () => {
     fetchMock.getOnce("/ingredients", {
-      body: {
-        ingredients: {
-          salad: 0,
-          cheese: 0,
-          becon: 0,
-          meat: 0,
-          coke: 0,
-          coffee: 0
-        }
-      },
-      headers: { "content-type": "application/json" }
+      ingredients: {
+        salad: 0,
+        cheese: 0,
+        becon: 0,
+        meat: 0,
+        coke: 0,
+        coffee: 0
+      }
     });
 
     const expectedActions = [
@@ -162,7 +159,7 @@ describe("BurgerBuilder", () => {
     ];
     const store = mockStore({ ingredients: null });
 
-    return store.dispatch(actions.fetchIngredients()).then(data => {
+    return store.dispatch(actions.fetchIngredients()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

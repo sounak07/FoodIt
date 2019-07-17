@@ -26,7 +26,7 @@ export const orderInit = (orderData, token) => {
   return dispatch => {
     dispatch(loading());
     // console.log(token);
-    axios
+    return axios
       .post(`/orders.json?auth=${token}`, orderData)
       .then(res => {
         // console.log(res.data.name);
